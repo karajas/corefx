@@ -3,22 +3,9 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), dir.props))\dir.props" />
 
   <PropertyGroup>
-    <AdditionalProperties>BuildPackageLibraryReferences=false</AdditionalProperties>
     <PackageReportDir Condition="'$(PackageReportDir)' == ''">$(BinDir)pkg/reports/</PackageReportDir>
     <BuildAllOSGroups Condition="'$(FilterToOSGroup)' != ''">false</BuildAllOSGroups>
   </PropertyGroup>
-
-  <!--
-    the following packages are built and shipped from TFS, so while we still want
-    to build them we don't want to ship them.  by setting NonShippingPackage to true
-    the packages will still be built but placed in a different location.
-  -->
-  <ItemGroup>
-    <NativeNonShippingPackage Include="Native\pkg\runtime.native.System.Data.SqlClient.sni\*.builds" />
-    <NativeNonShippingPackage Include="Native\pkg\runtime.native.System.IO.Compression\*.builds" />
-    <NonShippingPackage Include="System.Data.SqlClient\pkg\*.builds" />
-    <NonShippingPackage Include="System.IO.Compression\pkg\*.builds" />
-  </ItemGroup>
 
   <ItemGroup>
     <Project Include="Native\pkg\**\*.builds" Exclude="@(NativeNonShippingPackage)" Condition="'$(SkipNativePackageBuild)' != 'true'">

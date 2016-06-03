@@ -1,5 +1,17 @@
 <Project ToolsVersion="12.0" DefaultTargets="BuildAndTest" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="dir.props" />
+  
+      <!--
+    the following packages are built and shipped from TFS, so while we still want
+    to build them we don't want to ship them.  by setting NonShippingPackage to true
+    the packages will still be built but placed in a different location.
+  -->
+  <ItemGroup>
+    <NativeNonShippingPackage Include="Native\pkg\runtime.native.System.Data.SqlClient.sni\*.builds" />
+    <NativeNonShippingPackage Include="Native\pkg\runtime.native.System.IO.Compression\*.builds" />
+    <NonShippingPackage Include="System.Data.SqlClient\pkg\*.builds" />
+    <NonShippingPackage Include="System.IO.Compression\pkg\*.builds" />
+  </ItemGroup>
 
   <ItemGroup>
     <Project Include="ref.builds" />

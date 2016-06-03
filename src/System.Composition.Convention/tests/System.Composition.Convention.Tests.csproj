@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), dir.props))\dir.props" />
   <PropertyGroup>
@@ -38,7 +38,7 @@
       <Project>{c6257381-c624-494a-a9d9-5586e60856ea}</Project>
       <Name>System.Composition.AttributedModel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\src\System.Composition.Convention.csproj">
+    <ProjectReference Include="..\pkg\System.Composition.Convention.pkgproj">
       <Project>{e6592fad-10b5-4b56-9287-d72dd136992f}</Project>
       <Name>System.Composition.Convention</Name>
     </ProjectReference>
