@@ -1,1 +1,0 @@
-{ "dependencies": { "Microsoft.DotNet.BuildTools": "1.0.25-prerelease-00501-0" }, "frameworks": { "netcoreapp1.0": { } } } 
