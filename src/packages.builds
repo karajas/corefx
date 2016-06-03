@@ -8,19 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Project Include="Native\pkg\**\*.builds" Exclude="@(NativeNonShippingPackage)" Condition="'$(SkipNativePackageBuild)' != 'true'">
+    <Project Include="Native\pkg\**\*.builds" Condition="'$(SkipNativePackageBuild)' != 'true'">
       <AdditionalProperties>$(AdditionalProperties);SkipCreatePackageOnMissingFiles=true</AdditionalProperties>
       <BuildAllOSGroups>$(BuildAllOSGroups)</BuildAllOSGroups>
     </Project>
-    <Project Include="*\pkg\*.builds" Exclude="@(NonShippingPackage)" Condition="'$(SkipManagedPackageBuild)' != 'true'">
+    <Project Include="*\pkg\*.builds" Condition="'$(SkipManagedPackageBuild)' != 'true'">
       <AdditionalProperties>$(AdditionalProperties)</AdditionalProperties>
-    </Project>
-    <Project Include="@(NativeNonShippingPackage)" Condition="'$(SkipNativePackageBuild)' != 'true'">
-      <AdditionalProperties>$(AdditionalProperties);SkipCreatePackageOnMissingFiles=true;NonShippingPackage=true</AdditionalProperties>
-      <BuildAllOSGroups>$(BuildAllOSGroups)</BuildAllOSGroups>
-    </Project>
-    <Project Include="@(NonShippingPackage)" Condition="'$(SkipManagedPackageBuild)' != 'true'">
-      <AdditionalProperties>$(AdditionalProperties);NonShippingPackage=true</AdditionalProperties>
     </Project>
     <Project Include="..\pkg\*\*.builds" Condition="'$(SkipManagedPackageBuild)' != 'true'">
       <AdditionalProperties>$(AdditionalProperties)</AdditionalProperties>
