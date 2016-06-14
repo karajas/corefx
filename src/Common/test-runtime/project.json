@@ -15,6 +15,11 @@
     "Microsoft.DotNet.xunit.performance.runner.cli": "1.0.0-alpha-build0036",
     "Microsoft.DotNet.xunit.performance.runner.Windows": "1.0.0-alpha-build0036",
     "xunit.console.netcore": "1.0.2-prerelease-00508-01",
+    "microsoft.xunit.runner.uwp": "1.0.2-prerelease-00507-0",
+    "Microsoft.NETCore.UniversalWindowsPlatform": {
+        "version": "5.2.0-rc4-3000440-00",
+        "exclude": "compile"
+    }
   },
   "frameworks": {
     "netstandard1.3": {}
