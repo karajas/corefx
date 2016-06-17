@@ -128,6 +128,7 @@
     <!-- PackagesDrops is passed in via the commandline "/p:PackagesDrops=[drop location]" -->
     <DnuSourceList Condition="'$(BuildTestsAgainstPackages)' == 'true'" Include="$(PackagesDrops)" />
     <!-- Need to escape double forward slash (%2F) or MSBuild will normalize to one slash on Unix. -->
+    <DnuSourceList Include="D:\git\buildtools7\bin\packages" />
     <!-- Including buildtools to pull in TestSuite packages and repackaged xunit dependencies-->
     <DnuSourceList Include="https:%2F%2Fdotnet.myget.org/F/dotnet-buildtools/api/v3/index.json" />
     <DnuSourceList Include="https:%2F%2Fdotnet.myget.org/F/dotnet-core/api/v3/index.json" />

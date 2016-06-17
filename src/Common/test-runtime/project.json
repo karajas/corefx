@@ -18,6 +18,11 @@
     "xunit.console.netcore": "1.0.2-prerelease-00508-01",
   },
   "frameworks": {
-    "netstandard1.3": {}
+    "netstandard1.3": {},
+    "uap10.0": {
+        "dependencies": {
+            "microsoft.xunit.runner.uwp": "1.0.3-prerelease-00516-0",
+        }
+    }
   }
 }
