@@ -21,7 +21,7 @@
     "netstandard1.3": {},
     "uap10.0": {
         "dependencies": {
-            "microsoft.xunit.runner.uwp": "1.0.3-prerelease-00516-0",
+            "microsoft.xunit.runner.uwp": "1.0.3-prerelease-00521-0",
         }
     }
   }

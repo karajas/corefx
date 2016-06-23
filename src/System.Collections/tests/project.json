@@ -16,7 +16,7 @@
       "target": "project",
       "exclude": "compile"
     },
-    "Microsoft.xunit.netcore.extensions": "1.0.0-prerelease-00508-01",
+    "Microsoft.xunit.netcore.extensions": "1.0.0-prerelease-00521-0",
     "Microsoft.DotNet.BuildTools.TestSuite": "1.0.0-prerelease-00508-01",
     "Microsoft.DotNet.xunit.performance": "1.0.0-alpha-build0037"
   },
