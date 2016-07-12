@@ -126,7 +126,16 @@
       <IdentityRegex>^(?i)Microsoft\.DotNet\.BuildTools\.TestSuite$</IdentityRegex>
       <ExpectedVersion>1.0.0-prerelease-00520-02</ExpectedVersion>
     </ValidationPattern>
+    <ValidationPattern Include="uwpRunnerVersion">
+      <IdentityRegex>^(?i)microsoft\.xunit\.runner\.uwp$</IdentityRegex>
+      <ExpectedVersion>$(AppXRunnerVersion)</ExpectedVersion>
+    </ValidationPattern>
   </ItemGroup>
+
+  <!-- Runner versions -->
+  <PropertyGroup>
+    <AppXRunnerVersion>1.0.3-prerelease-00608-0</AppXRunnerVersion>
+  </PropertyGroup>
 
   <!-- Import packaging props -->
   <Import Project="$(MSBuildThisFileDirectory)Packaging.props"/>
@@ -510,6 +519,10 @@
   <!-- Default Test platform to deploy the netstandard compiled tests to -->
   <PropertyGroup>
     <TestTFM Condition="'$(TestTFM)'==''">netcoreapp1.0</TestTFM>
+  <!-- we default FilterToTestTFM to netcoreapp1.0 if it is not explicity defined -->
+    <FilterToTestTFM Condition="'$(FilterToTestTFM)'==''">netcoreapp1.0</FilterToTestTFM>
+  <!-- Intermediate dir that stores all the output paths of all tests -->
+    <TestOutputDirectoryListRoot>$(ObjDir)/testoutputdirlist</TestOutputDirectoryListRoot>
   </PropertyGroup>
 
   <PropertyGroup>

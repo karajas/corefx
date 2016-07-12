@@ -23,6 +23,7 @@
     "uap10.0": {
       "dependencies": {
         "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.1-beta-000547-00",
+        "microsoft.xunit.runner.uwp" : "1.0.3-prerelease-00608-0",
         "System.Console": "4.0.1-beta-24312-02",
         "Microsoft.DotNet.TestILC": {
           "version": "1.4.24208-prerelease",
