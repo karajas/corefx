@@ -13,7 +13,14 @@
     <IncludePerformanceTests>true</IncludePerformanceTests>
     <NugetTargetMoniker>.NETStandard,Version=v1.3</NugetTargetMoniker>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(UseContractReferences)' == 'true'" >
+    <ProjectJson>Performance/project.json</ProjectJson>
+    <ProjectLockJson>Performance/project.lock.json</ProjectLockJson>
+  </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Performance\XmlUTF8TextReaderTests.cs" />
+    <Compile Include="Performance\PerformanceTestsCommon.cs" />
+    <Compile Include="Performance\DcsPerformanceTest.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="SerializationTypes.cs" />
     <Compile Include="SerializationTypes.CoreCLR.cs" />
@@ -24,6 +31,10 @@
     <Compile Include="MyResolver.cs" />
     <Compile Include="XmlDictionaryReaderTests.cs" />
     <Compile Include="XmlDictionaryWriterTest.cs" />
+    <!-- Performance Tests -->
+    <Compile Include="$(CommonTestPath)\System\PerfUtils.cs">
+      <Link>Common\System\PerfUtils.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup Condition="'$(UseContractReferences)' == ''">
     <ProjectReference Include="..\..\System.Private.DataContractSerialization\src\System.Private.DataContractSerialization.csproj">
