@@ -105,13 +105,6 @@
     <Compile Include="XmlProcessingInstructionTests\DataTests.cs" />
     <Compile Include="XmlProcessingInstructionTests\TargetTests.cs" />
     <Compile Include="XmlTextTests\SplitTextTests.cs" />
-    <!-- Performance Tests -->
-    <Compile Include="Performance\Perf.XmlDocument.cs" />
-    <Compile Include="Performance\Perf.XmlNode.cs" />
-    <Compile Include="Performance\Perf.XmlNodeList.cs" />
-    <Compile Include="$(CommonTestPath)\System\PerfUtils.cs">
-      <Link>Common\System\PerfUtils.cs</Link>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\pkg\System.Xml.XmlDocument.pkgproj">

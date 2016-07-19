@@ -131,13 +131,6 @@
     <Compile Include="TextInfo\TextInfoToString.cs" />
     <Compile Include="TextInfo\TextInfoToUpper.cs" />
     <Compile Include="UnicodeCategory\UnicodeCategoryTests.cs" />
-    <!-- Performance Tests -->
-    <Compile Include="Performance\Perf.CultureInfo.cs" />
-    <Compile Include="Performance\Perf.DateTimeCultureInfo.cs" />
-    <Compile Include="Performance\Perf.NumberCultureInfo.cs" />
-    <Compile Include="$(CommonTestPath)\System\PerfUtils.cs">
-      <Link>Common\System\PerfUtils.cs</Link>
-    </Compile>
     <!-- Helpers -->
     <Compile Include="$(CommonTestPath)\System\PlatformDetection.cs">
       <Link>Common\System\PlatformDetection.cs</Link>

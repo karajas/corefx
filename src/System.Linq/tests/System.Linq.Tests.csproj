@@ -74,12 +74,6 @@
     <Compile Include="UnionTests.cs" />
     <Compile Include="WhereTests.cs" />
     <Compile Include="ZipTests.cs" />
-    <!-- Performance Tests -->
-    <Compile Include="Performance\Perf.Linq.cs" />
-    <Compile Include="Performance\Perf.LinqTestBase.cs" />
-    <Compile Include="$(CommonTestPath)\System\PerfUtils.cs">
-      <Link>Common\System\PerfUtils.cs</Link>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="project.json" />

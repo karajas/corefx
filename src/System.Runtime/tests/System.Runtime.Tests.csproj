@@ -89,24 +89,6 @@
     <Compile Include="$(CommonTestPath)\System\RandomDataGenerator.cs">
       <Link>Common\System\RandomDataGenerator.cs</Link>
     </Compile>
-    <!-- Performance Tests -->
-    <Compile Include="Performance\Perf.Boolean.cs" />
-    <Compile Include="Performance\Perf.Char.cs" />
-    <Compile Include="Performance\Perf.Double.cs" />
-    <Compile Include="Performance\Perf.Enum.cs" />
-    <Compile Include="Performance\Perf.Guid.cs" />
-    <Compile Include="Performance\Perf.Object.cs" />
-    <Compile Include="Performance\Perf.String.cs" />
-    <Compile Include="Performance\Perf.TimeSpan.cs" />
-    <Compile Include="Performance\Perf.Type.cs" />
-    <Compile Include="Performance\Perf.UInt32.cs" />
-    <Compile Include="Performance\Perf.DateTime.cs" />
-    <Compile Include="Performance\Perf.Int32.cs" />
-    <Compile Include="Performance\Perf.IntPtr.cs" />
-    <Compile Include="Performance\Perf.StringBuilder.cs" />
-    <Compile Include="$(CommonTestPath)\System\PerfUtils.cs">
-      <Link>Common\System\PerfUtils.cs</Link>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="project.json" />
