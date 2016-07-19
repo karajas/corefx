@@ -12,7 +12,6 @@
     <RootNamespace>System.Runtime.Extensions.Tests</RootNamespace>
     <AssemblyName>System.Runtime.Extensions.Tests</AssemblyName>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <IncludePerformanceTests>true</IncludePerformanceTests>
     <NugetTargetMoniker>.NETStandard,Version=v1.5</NugetTargetMoniker>
   </PropertyGroup>
   <!-- Default configurations to help VS understand the configurations -->

@@ -10,7 +10,6 @@
     <AssemblyName>System.Diagnostics.Process.Tests</AssemblyName>
     <NuGetPackageImportStamp>b62eec4b</NuGetPackageImportStamp>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <IncludePerformanceTests>true</IncludePerformanceTests>
     <NugetTargetMoniker>.NETStandard,Version=v1.4</NugetTargetMoniker>
   </PropertyGroup>
   <!-- Default configurations to help VS understand the configurations -->
