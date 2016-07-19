@@ -33,6 +33,11 @@
     <Compile Include="Perf.Int32.cs" />
     <Compile Include="Perf.IntPtr.cs" />
     <Compile Include="Perf.StringBuilder.cs" />
+    <Compile Include="..\System\String.SplitTests.cs" />
+    <Compile Include="..\Helpers.cs" />
+    <Compile Include="$(CommonTestPath)\System\RandomDataGenerator.cs">
+      <Link>Common\System\RandomDataGenerator.cs</Link>
+    </Compile>
     <Compile Include="$(CommonTestPath)\System\PerfUtils.cs">
       <Link>Common\System\PerfUtils.cs</Link>
     </Compile>

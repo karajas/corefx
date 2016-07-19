@@ -20,7 +20,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\*.cs" />
+    <Compile Include="..\SampleClasses.cs" />
     <Compile Include="..\Mocks\*.cs" />
     <Compile Include="Perf.TypeDescriptorTests.cs" />
     <Compile Include="$(CommonTestPath)\System\PerfUtils.cs">
