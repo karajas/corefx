@@ -10,6 +10,7 @@
     <AssemblyName>System.ComponentModel.TypeConverter.Performance.Tests</AssemblyName>
     <IncludePerformanceTests>true</IncludePerformanceTests>
     <NugetTargetMoniker>.NETStandard,Version=v1.5</NugetTargetMoniker>
+    <DefineConstants>$(DefineConstants);PERFORMANCE_TESTS</DefineConstants>
   </PropertyGroup>
   <PropertyGroup>
     <DebugEngines>{2E36F1D4-B23C-435D-AB41-18E608940038}</DebugEngines>
