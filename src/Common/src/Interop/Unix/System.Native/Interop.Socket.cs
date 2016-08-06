@@ -12,7 +12,9 @@ internal static partial class Interop
 {
     internal static partial class Sys
     {
+        #pragma warning disable 0436
         [DllImport(Libraries.SystemNative, EntryPoint = "SystemNative_Socket")]
         internal static extern unsafe Error Socket(AddressFamily addressFamily, SocketType socketType, ProtocolType protocolType, IntPtr* socket);
+        #pragma warning restore 0436
     }
 }

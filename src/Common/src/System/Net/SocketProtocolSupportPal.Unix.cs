@@ -7,7 +7,6 @@ using System.Net.Internals;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Threading;
-
 namespace System.Net
 {
     internal class SocketProtocolSupportPal
@@ -55,6 +54,7 @@ namespace System.Net
 
         private static unsafe bool IsProtocolSupported(AddressFamily af)
         {
+            #pragma warning disable 0436
             IntPtr socket = (IntPtr)(-1);
             try
             {
@@ -68,6 +68,7 @@ namespace System.Net
                     Interop.Sys.Close(socket);
                 }
             }
+            #pragma warning restore 0436
         }
     }
 }
