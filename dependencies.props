@@ -26,7 +26,7 @@
 
   <!-- Full package version strings that are used in other parts of the build. -->
   <PropertyGroup>
-    <AppXRunnerVersion>1.0.3-prerelease-00903-02</AppXRunnerVersion>
+    <AppXRunnerVersion>1.0.3-prerelease-00920-0</AppXRunnerVersion>
     <XunitPerfAnalysisPackageVersion>1.0.0-alpha-build0040</XunitPerfAnalysisPackageVersion>
   </PropertyGroup>
 
