@@ -21,9 +21,14 @@
     <Compile Include="Configuration\PropertyInfo.cs" />
     <Compile Include="GenerateConfigurationProps.cs" />
     <Compile Include="FindBestConfiguration.cs" />
+    <Compile Include="GenerateDepsJson.cs" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetGroup)' != 'net45'">
+    <Compile Include="GenerateDepsJson.netstandard.cs" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetGroup)' == 'net45'">
     <Compile Include="BuildTask.net45.cs" />
+    <Compile Include="GenerateDepsJson.net45.cs" />
     <Compile Include="AssemblyResolver.cs" />
     <TargetingPackReference Include="System" />
     <TargetingPackReference Include="System.Core" />

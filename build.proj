@@ -23,7 +23,6 @@
     <Project Include="external\dir.proj" />
     <Project Include="src\ref.builds" />
     <Project Include="src\src.builds" />
-    <Project Include="src\tests.builds" />
     <!--
     <Project Include="src\tests.builds" Condition="$(BuildTests)=='true'">
       <InputOSGroup>$(InputOSGroup)</InputOSGroup>
@@ -77,28 +76,6 @@
 
     <MSBuild Projects="@(ExternalProject)"
              ContinueOnError="ErrorAndContinue" />
-  </Target>
-
-  <!-- TODO: Can we move this archive test build to BuildTools -->
-  <UsingTask TaskName="ZipFileCreateFromDependencyLists" Condition="'$(ArchiveTests)' == 'true'" AssemblyFile="$(BuildToolsTaskDir)Microsoft.DotNet.Build.Tasks.dll"/>
-  <Target Name="ArchiveTestBuild" Condition="'$(ArchiveTests)' == 'true'" AfterTargets="Build" >
-    <ItemGroup>
-      <ExcludeFromArchive Include="nupkg$" />
-      <ExcludeFromArchive Include="Microsoft.DotNet.BuildTools" />
-      <ExcludeFromArchive Include="TestData" />
-      <TestDependencyListFile Include="$(BinDir)/TestDependencies/*.dependencylist.txt" />
-    </ItemGroup>
-
-    <PropertyGroup>
-      <TestArchiveDir>$(TestWorkingDir)$(OSPlatformConfig)/archive/tests/</TestArchiveDir>
-      <TestArchiveDir Condition="'$(TestTFM)' != ''">$(TestArchiveDir)$(TestTFM)/</TestArchiveDir>
-    </PropertyGroup>
-
-    <ZipFileCreateFromDependencyLists
-      DependencyListFiles="@(TestDependencyListFile)"
-      DestinationArchive="$(TestArchiveDir)\Packages.zip"
-      RelativePathBaseDirectory="$(PackagesDir)"
-      OverwriteDestination="true" />
   </Target>
 
   <!-- Override CleanAllProjects from dir.traversal.targets and just remove the full BinDir -->

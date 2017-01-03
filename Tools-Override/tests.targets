@@ -24,11 +24,16 @@
     <DefaultNoCategories Include="$(DefaultNoCategories)" />
     <UnsupportedPlatformsItems Include="$(UnsupportedPlatforms)"/>
   </ItemGroup>
+  
+  <ItemGroup>
+    <SupplementalTestData Include="$(RuntimePath)\xunit.console.netcore.exe" />
+  </ItemGroup>
 
+  <!-- Test with dotnet -->
   <PropertyGroup>
     <TestRuntimeDir>$(RuntimePath)</TestRuntimeDir>
-    <TestHostExecutable Condition="'$(TestHostExecutable)' == ''">$(TestRuntimeDir)\corerun.exe</TestHostExecutable>
-    <XunitExecutable Condition="'$(XunitExecutable)' == ''">$(TestRuntimeDir)/xunit.console.netcore.exe</XunitExecutable>
+    <TestHostExecutable Condition="'$(TestHostExecutable)' == ''">$(BinDir)dotnetcli\dotnet.exe</TestHostExecutable>
+    <XunitExecutable Condition="'$(XunitExecutable)' == ''">$(TestPath)/xunit.console.netcore.exe</XunitExecutable>
   </PropertyGroup>
 
   <!-- General xunit options -->
@@ -55,11 +60,72 @@
 
     <TestCommandLine Condition="'$(Performance)'!='true'">$(TestProgram) $(TestArguments) {XunitTraitOptions}</TestCommandLine>
   </PropertyGroup>
+  
+  <!-- This will generate a version of the dotnet cli that runs with the live
+       build of corefx using the other components gathered from the stable 
+       version consumed from the Tools directory 
+  -->
+  <Target Name="ConstructDotNetExe" Condition="!Exists('$(BinDir)dotnetcli')" >
+    <PropertyGroup>
+      <TestDotNetCliPath>$(BinDir)dotnetcli</TestDotNetCliPath>
+    </PropertyGroup>
+    <ItemGroup>
+      <DotNetCliFiles Include="$(DotnetCliPath)\*.*" />
+      <DotNetCliSharedFramework Include="$(DotnetCliPath)\shared\**\*.*" />
+      <DotNetCliSharedFrameworkHost Include="$(DotnetCliPath)\host\**\*.*" />
+      <DotNetCliSharedFrameworkSdk Include="$(DotnetCliPath)\sdk\**\*.*" />
+      <DotNetCliSharedFrameworkSdkRuntimeConfig Include="$(TestDotNetCliPath)\sdk\**\dotnet.runtimeconfig.json" />
+      <LiveDotNetCliComponents Include="$(RuntimePath)\*.*" Exclude="$(RuntimePath)\xunit.console.netcore.exe" />
+    </ItemGroup>
+  
+    <Copy SourceFiles="@(DotNetCliFiles)" 
+          DestinationFiles="@(DotNetCliFiles -> '$(TestDotNetCliPath)\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(DotNetCliSharedFrameworkHost)" 
+          DestinationFiles="@(DotNetCliSharedFrameworkHost -> '$(TestDotNetCliPath)\host\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(DotNetCliSharedFrameworkSdk)" 
+          DestinationFiles="@(DotNetCliSharedFrameworkSdk -> '$(TestDotNetCliPath)\sdk\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <ItemGroup>     
+      <DotNetCliSharedFrameworkSdkRuntimeConfig Include="$(TestDotNetCliPath)\sdk\**\dotnet.runtimeconfig.json" />
+    </ItemGroup>
+    <ReadLinesFromFile File="@(DotNetCliSharedFrameworkSdkRuntimeConfig)" >  
+        <Output TaskParameter="Lines"  
+                ItemName="LinesFromDotNetCliSharedFrameworkSdkRuntimeConfig"/> 
+    </ReadLinesFromFile>
+    <ItemGroup>
+       <LinesToWriteDotNetCliSharedFrameworkSdkRuntimeConfig Include="$([System.String]::Copy('%(LinesFromDotNetCliSharedFrameworkSdkRuntimeConfig.Identity)').Replace('1.0.0','9.9.9'))" />
+       <LinesToWriteDotNetCliSharedFrameworkSdkRuntimeConfig Include="};}" />
+    </ItemGroup>
+    <WriteLinesToFile  
+            File="@(DotNetCliSharedFrameworkSdkRuntimeConfig)"  
+            Lines="@(LinesToWriteDotNetCliSharedFrameworkSdkRuntimeConfig)"  
+            Overwrite="true" />
+    <Copy SourceFiles="@(DotNetCliSharedFrameworkSdkRuntimeConfig)" 
+          DestinationFiles="@(DotNetCliSharedFrameworkSdkRuntimeConfig -> '$(ObjDir)\xunit\xunit.console.netcore.runtimeconfig.json')" />
+    <Copy SourceFiles="@(DotNetCliSharedFramework)" 
+          DestinationFiles="@(DotNetCliSharedFramework -> '$(TestDotNetCliPath)\shared\Microsoft.NETCore.App\9.9.9\%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(LiveDotNetCliComponents)" 
+          DestinationFiles="@(LiveDotNetCliComponents -> '$(TestDotNetCliPath)\shared\Microsoft.NETCore.App\9.9.9\%(Filename)%(Extension)')" />
+  
+    <ItemGroup>
+      <OriginalDepsJsonPathItemGroup Include="$(TestDotNetCliPath)\shared\Microsoft.NETCore.App\9.9.9\*.deps.json" />
+    </ItemGroup>
+    <PropertyGroup>
+      <OriginalDepsJsonPath>@(OriginalDepsJsonPathItemGroup)</OriginalDepsJsonPath>
+    </PropertyGroup>
+    <GenerateDepsJson DepsJsonPath="$(OriginalDepsJsonPath)" />
+  </Target>
 
   <!-- The Code Coverage targets will override TestHost and TestCommandLine if coverage is enabled -->
   <Import Project="$(MSBuildThisFileDirectory)CodeCoverage.targets" />
+  
+  <Target Name="AddRuntimeConfig" >
+    <ItemGroup>
+       <SupplementalTestData Include="$(ObjDir)\xunit\xunit.console.netcore.runtimeconfig.json" />
+    </ItemGroup>
+    <Message Importance="High" Text="KARTHIKDEBUG2 '$(ObjDir)\xunit\xunit.console.netcore.runtimeconfig.json' '@(SupplementalTestData)'" />
+  </Target>
 
-  <Target Name="DiscoverTestInputs" DependsOnTargets="ResolveReferences;GetCopyToOutputDirectoryItems">
+  <Target Name="DiscoverTestInputs" DependsOnTargets="ResolveReferences;GetCopyToOutputDirectoryItems;AddRuntimeConfig" >
     <ItemGroup>
       <RunTestsForProjectInputs Include="@(ReferenceCopyLocalPaths)" />
       <RunTestsForProjectInputs Include="@(Content)" />
@@ -142,12 +208,13 @@
     <Message Condition="'%(UnsupportedPlatformsItems.Identity)' == '$(TargetOS)'"
       Text="Skipping tests in $(AssemblyName) because it is not supported on $(TargetOS)" />
   </Target>
-
+  
   <Target Name="SetupTestProperties" DependsOnTargets="CheckTestPlatforms;CheckTestCategories" />
 
   <PropertyGroup>
     <TestDependsOn>
       $(TestDependsOn);
+      ConstructDotNetExe;
       DiscoverTestInputs;
       SetupTestProperties;
       CopySupplementalTestData;

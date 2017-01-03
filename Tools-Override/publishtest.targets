@@ -6,6 +6,7 @@
   <UsingTask TaskName="ZipFileCreateFromDirectory" Condition="'$(ArchiveTests)' == 'true'" AssemblyFile="$(BuildToolsTaskDir)Microsoft.DotNet.Build.Tasks.dll"/>
   <UsingTask TaskName="GenerateAssemblyList" AssemblyFile="$(BuildToolsTaskDir)Microsoft.DotNet.Build.Tasks.dll"/>
   <UsingTask TaskName="GetTargetMachineInfo" Condition="'$(TestWithLocalLibraries)'=='true'" AssemblyFile="$(BuildToolsTaskDir)Microsoft.DotNet.Build.Tasks.dll"/>
+  <UsingTask TaskName="GenerateDepsJson" AssemblyFile="$(CoreFxToolsTaskDir)CoreFx.Tools.dll"/>
 
   <PropertyGroup>
     <SerializeProjects Condition="'$(TestWithLocalLibraries)'=='true'">true</SerializeProjects>
