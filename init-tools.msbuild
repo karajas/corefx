@@ -4,8 +4,9 @@
     <EnableDefaultItems>false</EnableDefaultItems>
     <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
     <BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)Tools/$(BuildToolsPackageVersion)</BaseIntermediateOutputPath>
+    <BuildToolsPackageVersion Condition="'$(AllowWildCard)'=='true'" >1.0-*</BuildToolsPackageVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.DotNet.BuildTools" Version="$(BuildToolsPackageVersion)" />
+    <PackageReference Include="$(ComponentPackage)" Version="$(BuildToolsPackageVersion)" />
   </ItemGroup>
 </Project>
