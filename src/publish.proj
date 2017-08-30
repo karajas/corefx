@@ -1,20 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), dir.props))\dir.props" />
+
   <PropertyGroup>
-    <FeedsDir>$(MSBuildThisFileDirectory)../FeedTools/</FeedsDir>
+    <FeedsDir>$(MSBuildThisFileDirectory)../component/Microsoft.Dotnet.Build.Tasks.Feed/desktop/</FeedsDir>
   </PropertyGroup>
   <Import Project="$(FeedsDir)Publish.targets" />
 
   <PropertyGroup>
+    <RestorePackagesPattern>$(PackagesDir)**/*.nupkg</RestorePackagesPattern>
     <PackagesPattern>$(PackageOutputRoot)**/*.nupkg</PackagesPattern>
     <SymbolsPackagesPattern>$(PackageOutputRoot)**/symbols/*.nupkg</SymbolsPackagesPattern>
   </PropertyGroup>
+  
+    <!-- Command: Tools\dotnetcli\dotnet.exe msbuild src\publish.proj /t:PublishOutputLeg /p:PublishRestorePackages=true /p:AccountName= /p:AccountKey= -->
+  <Target Name="PublishRestorePackages" Condition="$(PublishRestorePackages)=='true'" BeforeTargets="PublishOutputLeg" >
+    <PropertyGroup>
+      <RelativePath>packages</RelativePath>
+    </PropertyGroup>
+    <ItemGroup>
+      <ItemsToPush Remove="*.nupkg" />
+      <ItemsToPush Include="$(RestorePackagesPattern)" Exclude="$(SymbolsPackagesPattern)"/>
+    </ItemGroup>
+  </Target>
 
-  <!-- Command: Tools\dotnetcli\dotnet.exe msbuild src\publish.proj /t:PublishOutputLeg /p:PublishSymbolsPackages=true /p:FeedAccountName= /p:FeedAccountKey= -->
+  <!-- Command: Tools\dotnetcli\dotnet.exe msbuild src\publish.proj /t:PublishOutputLeg /p:PublishSymbolsPackages=true /p:AccountName= /p:FeedAccountKey= -->
   <Target Name="PublishPackages" Condition="$(PublishPackages)=='true'" BeforeTargets="PublishOutputLeg" >
     <PropertyGroup>
-      <FeedType>Blob</FeedType>
       <RelativePath>packages</RelativePath>
     </PropertyGroup>
     <ItemGroup>
@@ -23,7 +35,7 @@
     </ItemGroup>
   </Target>
   
-  <!-- Command: Tools\dotnetcli\dotnet.exe msbuild src\publish.proj /t:PublishOutputLeg /p:PublishSymbolsPackages=true /p:FeedAccountName= /p:FeedAccountKey= -->
+  <!-- Command: Tools\dotnetcli\dotnet.exe msbuild src\publish.proj /t:PublishOutputLeg /p:PublishSymbolsPackages=true /p:AccountName= /p:FeedAccountKey= -->
   <Target Name="PublishSymbolsPackages" Condition="$(PublishSymbolsPackages)=='true'" BeforeTargets="PublishOutputLeg" >
     <PropertyGroup>
       <FeedType>Blob</FeedType>

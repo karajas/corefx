@@ -27,6 +27,14 @@
   <Import Project="dir.traversal.targets" />
 
   <Import Project="$(ToolsDir)clean.targets" />
+    
+  <PropertyGroup>
+    <FeedsDir>$(MSBuildThisFileDirectory)/component/Microsoft.Dotnet.Build.Tasks.Feed/</FeedsDir>
+  </PropertyGroup>
+  <ItemGroup>
+    <EnableFeeds Include="https://karajascli.blob.core.windows.net/corefx-master-deps-01/packages/index.json" />
+  </ItemGroup>
+  <Import Project="$(FeedsDir)Restore.targets" />
 
   <PropertyGroup>
     <TraversalBuildDependsOn>
